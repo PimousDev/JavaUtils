@@ -15,7 +15,7 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
   - [ ] Include ressources on project side.
 - [x] Execution script (Project & Test).
 - [x] Add VSCode tasks (And configurate VSCode's java).
-- [ ] A class to give a way to print pretty version of any object inheriting.
+- [x] A class to give a way to print pretty version of any object inheriting.
 
 ## Documentation
 Usually, everything is written in files but there is some explanations.
