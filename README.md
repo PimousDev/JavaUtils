@@ -9,11 +9,12 @@ So, these tools are usually updated when we need it. But, if you have any
 suggestion or proposal to upgrade this last, don't hesitate to contact us.
 
 ## Roadmap
-- [ ] Environment files reading & parsing.
-- [ ] Cleaning script (Project & Test).
-- [ ] Compilation script (Project & Test).
+- [x] Environment files reading & parsing.
+- [x] Cleaning script (Project & Test).
+- [x] Compilation script (Project & Test).
   - [ ] Include ressources on project side.
-- [ ] Execution script (Project & Test).
+- [x] Execution script (Project & Test).
+- [x] Add VSCode tasks (And configurate VSCode's java).
 - [ ] A class to give a way to print pretty version of any object inheriting.
 
 ## Documentation

@@ -1,0 +1,151 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		// CLEANING ------------------------------------------------------------
+		{
+			"label": "Clean java project source's output folder.",
+			"type": "shell",
+
+			"icon": { "id": "trash" },
+			"detail": "Executes the clean.sh script for project sources.",
+
+			"command": "source",
+			"args": ["./bin/clean.sh", "project"],
+			"runOptions": {
+				"instanceLimit": 1
+			},
+
+			"presentation": {
+				"clear": true,
+				"echo": false,
+				"group": "java",
+				"panel": "shared",
+				"showReuseMessage": false
+			},
+			"promptOnClose": true,
+			"problemMatcher": [],
+		},
+		{
+			"label": "Clean java test source's output folder.",
+			"type": "shell",
+
+			"icon": { "id": "trash" },
+			"detail": "Executes the clean.sh script for test sources.",
+
+			"command": "source",
+			"args": ["./bin/clean.sh", "test"],
+			"runOptions": {
+				"instanceLimit": 1
+			},
+
+			"presentation": {
+				"clear": true,
+				"echo": false,
+				"group": "javaTest",
+				"panel": "shared",
+				"showReuseMessage": false
+			},
+			"promptOnClose": true,
+			"problemMatcher": [],
+		},
+
+		// COMPILATION ---------------------------------------------------------
+		{
+			"label": "Compile java project sources.",
+			"type": "shell",
+			"group": "build",
+
+			"icon": { "id": "save" },
+			"detail": "Executes the compile.sh script for project sources.",
+			"hide": true,
+
+			"command": "source",
+			"args": ["./bin/compile.sh", "project"],
+			"runOptions": {
+				"instanceLimit": 1
+			},
+			"dependsOn": ["Clean java project source's output folder."],
+
+			"presentation": {
+				"echo": false,
+				"group": "java",
+				"panel": "shared",
+				"showReuseMessage": false
+			},
+			"promptOnClose": true,
+			"problemMatcher": [],
+		},
+		{
+			"label": "Compile java test sources.",
+			"type": "shell",
+			"group": "build",
+
+			"icon": { "id": "save" },
+			"detail": "Executes the compile.sh script for test sources.",
+			"hide": true,
+
+			"command": "source",
+			"args": ["./bin/compile.sh", "test"],
+			"runOptions": {
+				"instanceLimit": 1
+			},
+			"dependsOn": ["Clean java test source's output folder."],
+
+			"presentation": {
+				"echo": false,
+				"group": "javaTest",
+				"panel": "shared",
+				"showReuseMessage": false
+			},
+			"promptOnClose": true,
+			"problemMatcher": [],
+		},
+
+		// EXECUTION -----------------------------------------------------------
+		{
+			"label": "Execute java project sources.",
+			"type": "shell",
+
+			"icon": { "id": "debug-start" },
+			"detail": "Executes the execute.sh script for project sources.",
+
+			"command": "source",
+			"args": ["./bin/execute.sh", "project"],
+			"dependsOn": ["Compile java project sources."],
+
+			"presentation": {
+				"echo": false,
+				"group": "java",
+				"panel": "dedicated",
+				"showReuseMessage": false
+			},
+			"promptOnClose": true,
+			"problemMatcher": [],
+		},
+		{
+			"label": "Execute java test sources.",
+			"type": "shell",
+			"group": "test",
+
+			"icon": { "id": "debug-start" },
+			"detail": "Executes the compile.sh script for test sources.",
+
+			"command": "source",
+			"args": ["./bin/execute.sh", "test"],
+			"dependsOn": [
+				"Compile java project sources.",
+				"Compile java test sources."
+			],
+			"dependsOrder": "sequence",
+
+			"presentation": {
+				"echo": false,
+				"group": "javaTest",
+				"panel": "dedicated",
+				"showReuseMessage": false
+			},
+			"promptOnClose": true,
+			"problemMatcher": [],
+		}
+	]
+}
