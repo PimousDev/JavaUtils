@@ -1,4 +1,4 @@
-# Java Utils [License badge]()
+# Java Utils [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-orange.svg)](COPYING.LESSER)
 Java Utils are build tools and utility librairies/classes to use in any java
 project. As in **Pimous Dev.** we only use our own productions, this repository
 contains everything needed to work without any build automation, dependency
@@ -15,7 +15,7 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
   - [ ] Include ressources on project side.
 - [x] Execution script (Project & Test).
 - [x] Add VSCode tasks (And configurate VSCode's java).
-- [ ] A class to give a way to print pretty version of any object inheriting.
+- [x] A class to give a way to print pretty version of any object inheriting.
 
 ## Documentation
 Usually, everything is written in files but there is some explanations.
