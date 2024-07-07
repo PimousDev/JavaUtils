@@ -1,8 +1,8 @@
 # Java Utils [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-orange.svg)](COPYING.LESSER)
-Java Utils are build tools and utility librairies/classes to use in any java
+Java Utils are build tools and utility libraries/classes to use in any java
 project. As in **Pimous Dev.** we only use our own productions, this repository
 contains everything needed to work without any build automation, dependency
-manager or general purpose librairies bundled with a lot of things we don't care
+manager or general purpose libraries bundled with a lot of things we don't care
 about.
 
 So, these tools are usually updated when we need it. But, if you have any
@@ -41,7 +41,7 @@ tools for your needs, copy `bin/etc/defaults.env` to your newly created file
 Read their documentation, import them and use them! Nothing else.
 
 ## License
-Java Utils (Build tools and Utility librairies/classes)  
+Java Utils (Build tools and Utility libraries/classes)  
 Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
 
 These programs is free software: you can redistribute it and/or modify it under
