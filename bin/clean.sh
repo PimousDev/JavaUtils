@@ -37,10 +37,10 @@ fi
 # DELETION
 echo "REMOVING ..."
 if [[ -d $outputPath && $(ls -A "$outputPath") ]]; then
-	echo "FOUND $(find "$outputPath"/* | wc -l) file(s) and folder(s)."
-	rm -frv "$outputPath"/**/*.class
+	echo "FOUND $(find "$outputPath" -type f | wc -l) file(s) and folder(s)."
+	rm -frv "$outputPath"/**/*.*
 	rm -dfr "${outputPath:?}"/**/*
 	echo "REMOVED."
 else
-	echo "No \"$outputPath\" directory or is empty; Aborting."
+	echo "No such \"$outputPath\" directory or is empty; Aborting."
 fi
