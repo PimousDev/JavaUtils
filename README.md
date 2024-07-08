@@ -12,7 +12,7 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
 - [x] Environment files reading & parsing.
 - [x] Cleaning script (Project & Test).
 - [x] Compilation script (Project & Test).
-  - [ ] Include ressources on project side.
+  - [x] Include ressources on project side.
 - [x] Execution script (Project & Test).
 - [x] Add VSCode tasks (And configurate VSCode's java).
 - [x] A class to give a way to print pretty version of any object inheriting.
