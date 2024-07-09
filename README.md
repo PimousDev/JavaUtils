@@ -21,24 +21,28 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
 Usually, everything is written in files but there is some explanations.
 
 ### Technician installation guide
-Copy and paste in the root of your project. _But, let your developers do it,
-they certainly know more about._
+Download and extract buildtools in the root of your project and/or move
+libraries in your source code while keeping packages. _But, let your developers
+do it, they certainly know more about._
 
 ### Developer preparation guide
-Copy and paste in the root of your project.
+Download and extract buildtools or libraries.
 
 #### Tools
+Place extracted files in the root of your project.
+
 If you're using [VSCode](https://code.visualstudio.com/), take a look at
 `.vscode/tasks.json` and the tasks section of the editor. In other cases, bash
 scripts under `bin` are documented so you can check them out.
 
 In any cases, if you want to override defaults and so configurate the build
-tools for your needs, copy `bin/etc/defaults.env` to your newly created file
-`.env`, remove unecessary lines and modify the remaining ones as you want
-(Usually `MAIN_CLASS` and `MAIN_CLASS_TEST` properties);
+tools for your needs, copy content of `bin/etc/defaults.env` to your newly
+created file `.env`, remove unecessary lines and modify the remaining ones as
+you want (Usually `MAIN_CLASS` and `MAIN_CLASS_TEST` properties);
 
 #### Utilities
-Read their documentation, import them and use them! Nothing else.
+Place extracted files in your source code while keeping packages. Read their
+documentation, import them and use them! Nothing else.
 
 ## License
 Java Utils (Build tools and Utility libraries/classes)  
