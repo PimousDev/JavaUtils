@@ -8,6 +8,8 @@ about.
 So, these tools are usually updated when we need it. But, if you have any
 suggestion or proposal to upgrade this last, don't hesitate to contact us.
 
+> Version: **v1.2.0-s.0**
+
 ## Roadmap
 - [x] Environment files reading & parsing.
 - [x] Cleaning script (Project & Test).
