@@ -45,7 +45,7 @@ fi
 
 # COMPILATION
 echo "COMPILING WITH $JAVA_VERSION_SHORT ..."
-javaCount=$(find "$sourcePath" -name "*.java" -type f | wc -l)
+javaCount=$(find "$sourcePath" -name "*.java" -type f 2>/dev/null | wc -l)
 if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
 	resCount=$(find "$PROJECT_RESOURCE"/* 2>/dev/null | wc -l)
 	echo "FOUND $javaCount java file(s) and $resCount resource file(s)."
