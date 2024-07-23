@@ -36,6 +36,7 @@ sourcePath=$PROJECT_SOURCE
 outputPath=$PROJECT_OUTPUT
 if [[ $1 = "test" ]]; then
 	classPaths+=("$PROJECT_OUTPUT")
+
 	sourcePath=$PROJECT_TEST
 	outputPath=$PROJECT_TEST_OUTPUT
 elif [[ $1 != "project" ]]; then
@@ -44,21 +45,34 @@ fi
 
 # COMPILATION
 echo "COMPILING WITH $JAVA_VERSION_SHORT ..."
-if [[ -d $sourcePath && $(ls -A "$sourcePath") ]]; then
-	echo "FOUND $(find "$sourcePath"/**/*.java | wc -l) java file(s)."
+javaCount=$(find "$sourcePath" -name "*.java" -type f 2>/dev/null | wc -l)
+if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
+	resCount=$(find "$PROJECT_RESOURCE"/* 2>/dev/null | wc -l)
+	echo "FOUND $javaCount java file(s) and $resCount resource file(s)."
 
-	# Args
+	# Arguments
 	args="-deprecation -d $outputPath $sourcePath/**/*.java"
 	if [[ ${#classPaths[@]} -gt 0 ]]; then
 		args="-cp $(arrayJoin ':' "${classPaths[@]}") $args"
 	fi
 
+	# Compiling
 	if eval "javac $args"; then
-		echo "COMPILED $(find "$outputPath"/**/*.class | wc -l) java file(s)."
+		classCount=$(find "$outputPath" -name "*.class" -type f | wc -l)
+		echo "COMPILED $classCount java file(s)."
 	else
 		exit 2
 	fi
+
+	# Copy project resources
+	if [[ -d $PROJECT_RESOURCE \
+		&& $(ls -A "$PROJECT_RESOURCE") \
+		&& ! $(cp -r "$PROJECT_RESOURCE"/. "$PROJECT_OUTPUT") \
+	]]; then
+		resCount=$(find "$PROJECT_OUTPUT" ! -name "*.class" -type f | wc -l)
+		echo "COPIED $resCount resource file(s)."
+	fi
 else
-	echo "No \"$sourcePath\" directory or is empty; Cannot compile."
+	echo "No such \"$sourcePath\" directory or does not contains files; Cannot compile."
 	exit 1
-fi
+fi 

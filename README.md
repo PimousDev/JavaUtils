@@ -1,18 +1,20 @@
 # Java Utils [![License: LGPL v3](https://img.shields.io/badge/License-LGPL_v3-orange.svg)](COPYING.LESSER)
-Java Utils are build tools and utility librairies/classes to use in any java
+Java Utils are build tools and utility libraries/classes to use in any java
 project. As in **Pimous Dev.** we only use our own productions, this repository
 contains everything needed to work without any build automation, dependency
-manager or general purpose librairies bundled with a lot of things we don't care
+manager or general purpose libraries bundled with a lot of things we don't care
 about.
 
 So, these tools are usually updated when we need it. But, if you have any
 suggestion or proposal to upgrade this last, don't hesitate to contact us.
 
+> Version: **v1.2.0**
+
 ## Roadmap
 - [x] Environment files reading & parsing.
 - [x] Cleaning script (Project & Test).
 - [x] Compilation script (Project & Test).
-  - [ ] Include ressources on project side.
+  - [x] Include ressources on project side.
 - [x] Execution script (Project & Test).
 - [x] Add VSCode tasks (And configurate VSCode's java).
 - [x] A class to give a way to print pretty version of any object inheriting.
@@ -21,27 +23,31 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
 Usually, everything is written in files but there is some explanations.
 
 ### Technician installation guide
-Copy and paste in the root of your project. _But, let your developers do it,
-they certainly know more about._
+Download and extract buildtools in the root of your project and/or move
+libraries in your source code while keeping packages. _But, let your developers
+do it, they certainly know more about._
 
 ### Developer preparation guide
-Copy and paste in the root of your project.
+Download and extract buildtools or libraries.
 
 #### Tools
+Place extracted files in the root of your project.
+
 If you're using [VSCode](https://code.visualstudio.com/), take a look at
 `.vscode/tasks.json` and the tasks section of the editor. In other cases, bash
 scripts under `bin` are documented so you can check them out.
 
 In any cases, if you want to override defaults and so configurate the build
-tools for your needs, copy `bin/etc/defaults.env` to your newly created file
-`.env`, remove unecessary lines and modify the remaining ones as you want
-(Usually `MAIN_CLASS` and `MAIN_CLASS_TEST` properties);
+tools for your needs, copy content of `bin/etc/defaults.env` to your newly
+created file `.env`, remove unecessary lines and modify the remaining ones as
+you want (Usually `MAIN_CLASS` and `MAIN_CLASS_TEST` properties);
 
 #### Utilities
-Read their documentation, import them and use them! Nothing else.
+Place extracted files in your source code while keeping packages. Read their
+documentation, import them and use them! Nothing else.
 
 ## License
-Java Utils (Build tools and Utility librairies/classes)  
+Java Utils (Build tools and Utility libraries/classes)  
 Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
 
 These programs is free software: you can redistribute it and/or modify it under
