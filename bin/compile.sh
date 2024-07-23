@@ -67,7 +67,7 @@ if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
 	# Copy project resources
 	if [[ -d $PROJECT_RESOURCE \
 		&& $(ls -A "$PROJECT_RESOURCE") \
-		&& ! $(cp -r "$PROJECT_RESOURCE"/* "$PROJECT_OUTPUT") \
+		&& ! $(cp -r "$PROJECT_RESOURCE"/. "$PROJECT_OUTPUT") \
 	]]; then
 		resCount=$(find "$PROJECT_OUTPUT" ! -name "*.class" -type f | wc -l)
 		echo "COPIED $resCount resource file(s)."
