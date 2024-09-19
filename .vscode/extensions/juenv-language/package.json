@@ -1,0 +1,54 @@
+{
+	"name": "juenv-language",
+	"displayName": "JavaUtils Environment Language",
+	"description": "Environment files from JavaUtils language support for VSCode.",
+	"categories": [
+		"Programming Languages",
+		"Linters"
+	],
+	"version": "1.0.0",
+	"license": "LGPL-3.0-only",
+	"publisher": "PimousDev",
+	"author": {
+		"name": "Xibitol",
+		"url": "https://www.github.com/Xibitol"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/PimousDev/JavaUtils"
+	},
+	"main": "extension.js",
+	"engines": {
+		"vscode": "^1.88.0"
+	},
+	"devDependencies": {
+		"vscode": "^1.1.37"
+	},
+	"contributes": {
+		"languages": [
+			{
+				"id": "juenv",
+				"aliases": [
+					"JUEnv",
+					"JavaUtilsEnv",
+					"juenv",
+					"javautils-env"
+				],
+				"extensions": [
+					".env"
+				],
+				"configuration": "./language-configuration.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "juenv",
+				"scopeName": "source.env.javautils",
+				"path": "./syntaxes/juenv.tmLanguage.json"
+			}
+		]
+	},
+	"activationEvents": [
+		"onStartupFinished"
+	]
+}

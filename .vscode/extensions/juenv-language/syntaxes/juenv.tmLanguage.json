@@ -1,0 +1,23 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "JUEnv",
+	"scopeName": "source.env.javautils",
+	"patterns": [
+		{
+			"match": "^[ ]*([[:upper:]_-]+)[ \t\\v]*(=)[ \t\\v]*([^\r\\v\f]*)[ ]*$",
+			"captures": {
+				"1": { "name": "variable.name.juenv" },
+				"2": { "name": "keyword.operator.juenv" },
+				"3": { "name": "string.unquoted.juenv" }
+			}
+		},
+		{
+			"contentName": "comment.line.double-slash.juenv",
+			"begin": "^[ ]*(//)",
+			"beginCaptures": {
+				"1": { "name": "comment.line.double-slash.juenv" }
+			},
+			"end": "(?=$)"
+        }
+	]
+}
