@@ -64,7 +64,7 @@ if [[ -d $outputPath ]]; then
 	args="-cp $(arrayJoin ':' "$outputPath" "${classPaths[@]}") $mainClass"
 
 	# Executing
-	if (cd "$tmpPath"; eval "$JAVA_SHELL $args"); then
+	if (cd "$tmpPath"; eval "$JAVA_SHELL $JAVA_FLAGS $args"); then
 		echo "TERMINATED."
 	else
 		exit 2

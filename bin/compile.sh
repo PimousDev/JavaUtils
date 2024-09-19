@@ -51,13 +51,13 @@ if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
 	echo "FOUND $javaCount java file(s) and $resCount resource file(s)."
 
 	# Arguments
-	args="-deprecation -d $outputPath $sourcePath/**/*.java"
+	args="-d $outputPath $sourcePath/**/*.java"
 	if [[ ${#classPaths[@]} -gt 0 ]]; then
 		args="-cp $(arrayJoin ':' "${classPaths[@]}") $args"
 	fi
 
 	# Compiling
-	if eval "$JAVAC_SHELL $args"; then
+	if eval "$JAVAC_SHELL $JAVAC_FLAGS $args"; then
 		classCount=$(find "$outputPath" -name "*.class" -type f | wc -l)
 		echo "COMPILED $classCount java file(s)."
 	else
