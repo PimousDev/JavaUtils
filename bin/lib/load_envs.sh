@@ -29,21 +29,25 @@
 # to false.
 loadEnvs(){
 	if [[ -f $1 ]]; then
-		# SAVE EXTGLOB STATUS AND SET IT (See http://mywiki.wooledge.org/glob#extglob)
+		# SAVE EXTGLOB STATUS AND SET IT
+		# (See http://mywiki.wooledge.org/glob#extglob)
 		shopt -q extglob; EXTGLOB_SETTED=$?
 		((EXTGLOB_SETTED)) && shopt -s extglob
 
-		while IFS="=" read -d ";" -r var value; do
+		while IFS="=" read -d $'\n' -r var value; do
 			spaceTab=$'\t\v'
 
 			var=${var##*([[:space:]])} # Start trim
 			var=${var%%*(["$spaceTab"])} # End trim
 
 			value=${value##*(["$spaceTab"])} # Start trim
-			value=${value%%*(["$spaceTab"])} # End trim
+			value=${value%%*([[:space:]])} # End trim
+
+			# Ignoring empty lines and comments.
+			if [[ -z $var || $var = //* ]]; then continue; fi
 
 			if [[ $var = +([[:upper:]_-]) ]]; then
-				if [[ $value = *([!$'\r\n\v\f']) ]]; then
+				if [[ $value = *([!$'\r\v\f']) ]]; then
 					if [[ $2 = false || -z $2 ]]; then
 						declare -grx "$var=$value"
 						echo "] LOADED ENV. VAR $var WITH THE VALUE \"$value\"."

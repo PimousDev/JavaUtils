@@ -11,13 +11,13 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
 > Version: **v1.2.0**
 
 ## Roadmap
-- [x] Environment files reading & parsing.
-- [x] Cleaning script (Project & Test).
-- [x] Compilation script (Project & Test).
-  - [x] Include ressources on project side.
-- [x] Execution script (Project & Test).
-- [x] Add VSCode tasks (And configurate VSCode's java).
-- [x] A class to give a way to print pretty version of any object inheriting.
+- [x] Comment syntax in environment files.
+- [ ] Environment variables to select used java binaries.
+- [ ] Environment variables to add flags on java binaries.
+- [ ] Environment files language support for vscode.
+- [ ] Main script working as a router.
+- [ ] Version of tools using GNU Make ?
+- [ ] Version of tools in C ? Using other tools ?
 
 ## Documentation
 Usually, everything is written in files but there is some explanations.
