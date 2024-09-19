@@ -8,16 +8,17 @@ about.
 So, these tools are usually updated when we need it. But, if you have any
 suggestion or proposal to upgrade this last, don't hesitate to contact us.
 
-> Version: **v1.2.0**
+> Version: **v1.3.0**
 
 ## Roadmap
-- [x] Environment files reading & parsing.
-- [x] Cleaning script (Project & Test).
-- [x] Compilation script (Project & Test).
-  - [x] Include ressources on project side.
-- [x] Execution script (Project & Test).
-- [x] Add VSCode tasks (And configurate VSCode's java).
-- [x] A class to give a way to print pretty version of any object inheriting.
+- [x] Comment syntax in environment files.
+- [x] Environment variables to select used java binaries.
+- [x] Environment variables to add flags on java binaries.
+- [x] Fix wrong count of copied resource files.
+- [x] Environment files language support, Intellisense and hovers for vscode.
+- [ ] Environment files validator (diagnostics) for vscode.
+- [ ] Main script working as a router.
+- [ ] Version of tools using GNU Make or in C ?
 
 ## Documentation
 Usually, everything is written in files but there is some explanations.
@@ -41,6 +42,14 @@ In any cases, if you want to override defaults and so configurate the build
 tools for your needs, copy content of `bin/etc/defaults.env` to your newly
 created file `.env`, remove unecessary lines and modify the remaining ones as
 you want (Usually `MAIN_CLASS` and `MAIN_CLASS_TEST` properties);
+
+> **For [VSCode](https://code.visualstudio.com/) users:** To make environment
+> file editing easier, a specially created extension adding Language support,
+> Intellisense and hovers for javautils environment files is present in
+> workspaces containing your `.vscode`. **It is currently only available as a
+> local workspace extension.** If you opened your java project's folder, you
+> can install it from your extensions pane in workspace recommandations'
+> section.
 
 #### Utilities
 Place extracted files in your source code while keeping packages. Read their

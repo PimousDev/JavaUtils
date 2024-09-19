@@ -51,13 +51,13 @@ if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
 	echo "FOUND $javaCount java file(s) and $resCount resource file(s)."
 
 	# Arguments
-	args="-deprecation -d $outputPath $sourcePath/**/*.java"
+	args="-d $outputPath $sourcePath/**/*.java"
 	if [[ ${#classPaths[@]} -gt 0 ]]; then
 		args="-cp $(arrayJoin ':' "${classPaths[@]}") $args"
 	fi
 
 	# Compiling
-	if eval "javac $args"; then
+	if eval "$JAVAC_SHELL $JAVAC_FLAGS $args"; then
 		classCount=$(find "$outputPath" -name "*.class" -type f | wc -l)
 		echo "COMPILED $classCount java file(s)."
 	else
@@ -69,7 +69,7 @@ if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
 		&& $(ls -A "$PROJECT_RESOURCE") \
 		&& ! $(cp -r "$PROJECT_RESOURCE"/. "$PROJECT_OUTPUT") \
 	]]; then
-		resCount=$(find "$PROJECT_OUTPUT" ! -name "*.class" -type f | wc -l)
+		resCount=$(find "$PROJECT_OUTPUT"/* ! -name "*.class" -type f | wc -l)
 		echo "COPIED $resCount resource file(s)."
 	fi
 else
