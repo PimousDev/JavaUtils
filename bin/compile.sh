@@ -57,7 +57,7 @@ if [[ -d $sourcePath && $javaCount -gt 0 ]]; then
 	fi
 
 	# Compiling
-	if eval "javac $args"; then
+	if eval "$JAVAC_SHELL $args"; then
 		classCount=$(find "$outputPath" -name "*.class" -type f | wc -l)
 		echo "COMPILED $classCount java file(s)."
 	else

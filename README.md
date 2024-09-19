@@ -12,7 +12,7 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
 
 ## Roadmap
 - [x] Comment syntax in environment files.
-- [ ] Environment variables to select used java binaries.
+- [x] Environment variables to select used java binaries.
 - [ ] Environment variables to add flags on java binaries.
 - [ ] Environment files language support for vscode.
 - [ ] Main script working as a router.

@@ -71,5 +71,5 @@ loadEnvs .env
 loadEnvs ./bin/etc/default.env true
 
 # DYNAMIC VARIABLES
-javaVer="$(java --version)"
+javaVer=$($JAVA_SHELL --version)
 declare -rx "JAVA_VERSION_SHORT=${javaVer%%$'\n'*}"
