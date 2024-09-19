@@ -14,6 +14,7 @@ suggestion or proposal to upgrade this last, don't hesitate to contact us.
 - [x] Comment syntax in environment files.
 - [x] Environment variables to select used java binaries.
 - [x] Environment variables to add flags on java binaries.
+- [x] Fix wrong count of copied resource files.
 - [ ] Environment files language support for vscode.
 - [ ] Main script working as a router.
 - [ ] Version of tools using GNU Make ?
