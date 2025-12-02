@@ -1,8 +1,14 @@
 identifier = "pu"
 name = "Project Utils"
 description = "Build, test and management tools for any language."
-version = "1.3.0"
-license = "LGPL-3.0-only"
+version = "0.0.0-a.0" # Stricter https://semver.org/; /^(?'major'(?'number'[1-9]\d*|0))\.(?'minor'(?&number))\.(?'patch'(?&number))(?:-(?'preReleaseIdentifier'[a-z])\.(?'preReleaseNumber'(?&number)))?$/gm
+license = "LGPL-3.0-only" # SPDX identifier
+
+[organization]
+  identifier = "pimous.dev" # Domain name, usually registered.
+  name = "Pimous Dev."
+  url = "https://www.pimous.dev/"
+  note = "A development studio of open-source, free and environmentally friendly librairies, softwares, and game servers."
 
 [author.Xibitol]
 	name = "Xibitol"
@@ -11,11 +17,18 @@ license = "LGPL-3.0-only"
 	roles = ["Developer", "DevOps"]
 
 [projects]
-	[projects.master]
+	[projects.main]
+		description = "Main program containing all tools."
 		language = "c"
-		projects.master.executables.pu = "pu.c"
-		[projects.master.lib]
-			name = "libpu"
-			header = "pu.h"
-		[projects.master.dependencies]
-			c = "23"
+		type = "executable"
+		[projects.main.dependencies]
+			c = "=23"
+			putils = "subproject"
+			libtoml = ">=1.4.0"
+			libcdir = "static=2.6.0"
+	[projects.jutils]
+		description = "Utilities for any java program."
+		language = "java"
+		type = "library"
+		[projects.jutils.dependencies]
+			java = "=21"
