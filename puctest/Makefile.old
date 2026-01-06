@@ -1,0 +1,6 @@
+puctest::
+	@$(call prepareCompilation,$@)
+	@$(call compileSources,$@, \
+		$$(find $(call getSPSourceDir,$@) -name "*.c" -type f) \
+	,-fPIC -D PUCTEST_COMPILATION)
+	@$(call linkShared,$@)

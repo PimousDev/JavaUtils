@@ -1,0 +1,7 @@
+pu:: puapi pucutils
+	@$(call prepareCompilation,$@)
+	@$(call compileSources,$@,$(call getSPSourceDir,$@)/pu.c)
+	@$(call compileSources,$@, \
+		$(find $(call getSPSourceDir,$@) -name "*.c" -type f) \
+	)
+	@$(call linkExec,$@)

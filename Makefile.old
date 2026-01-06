@@ -1,0 +1,89 @@
+VERSION := 2.0.0-a.0
+
+SOURCE_DIR := src
+TEST_SOURCE_DIR := test
+OUTPUT_DIR := out
+TEMPORARY_DIR := tmp
+
+SUBPROJECTS := $(shell find */Makefile -type f -printf %h\\n)
+SUBPROJECTS_MAKEFILES := $(foreach sp,${SUBPROJECTS},${sp}/Makefile)
+
+CFLAGS += -Wall -Wextra -Wpedantic
+# LDFLAGS +=
+
+# GETTERS
+# getSPSourceDir(subproject)
+getSPSourceDir = ${1}/${SOURCE_DIR}
+# getSPTestSourceDir(subproject)
+getSPTestSourceDir = ${1}/${TEST_SOURCE_DIR}
+# getSPOutputDir(subproject, mode)
+getSPOutputDir = ${OUTPUT_DIR}/${1}/${2}
+
+# FUNCTIONS
+# prepareCompilation(subproject)
+prepareCompilation = \
+	echo COMPILING ${1} SUBPROJECT...;
+
+# compileSources(subproject, files, cFlags)
+compileSources = \
+	for f in ${2}; do \
+		relFile=$${f\#$(call getSPSourceDir,${1})}; \
+		echo -\> $${relFile\#/}; \
+		\
+		mkdir -p $(call getSPOutputDir,${1},dev)/$$(dirname $$relFile); \
+		${CC} $$f \
+			${CFLAGS} ${3} -c \
+			-o $(call getSPOutputDir,${1},dev)/$${relFile%.c}.o; \
+	done
+
+# linkObjects(subproject, ldFlags, outputType, outputFile)
+linkObjects = \
+	echo -\> [${3}] ${1}; \
+	mkdir -p $(call getSPOutputDir,${1},prod)/$$(dirname ${4}); \
+	${CC} ${LDFLAGS} ${2} -o $(call getSPOutputDir,${1},prod)/${4} \
+		$$(find $(call getSPOutputDir,${1},dev) -name "*.o" -type f)
+
+# linkExec(subproject, ldFlags)
+linkExec = $(call linkObjects,${1},${2},EXEC,${1})
+# linkStatic(subproject, arFlags)
+linkStatic = \
+	echo -\> [STATIC] ${1}; \
+	${AR} rcs $$(find $(call getSPOutputDir,${1},dev) -name "*.o" -type f) \
+		${2} -o $(call getSPOutputDir,${1},prod)/lib${1}.a
+# linkShared(subproject, ldFlags)
+linkShared = $(call linkObjects,${1},-shared ${2},SHARED,lib${1}.so)
+
+# LISTENERS
+.PHONY: help hello fine path all ${SUBPROJECTS} test clean
+all: pu puapi pucutils puctest
+
+help:
+	@echo "Usage: make <help|hello|path>"
+	@echo "   or: make <subproject>"
+	@echo "   or: make <test|clean>"
+
+hello:
+	@echo "Hi! How are you? :)"
+fine:
+	@echo "Too much talk, not enough dev!"
+
+path:
+	@echo "SUBPROJECTS=${SUBPROJECTS}"
+	@echo "SUBPROJECTS_MAKEFILES=${SUBPROJECTS_MAKEFILES}"
+	@echo "SOURCE_DIR=${SOURCE_DIR}"
+	@echo "TEST_SOURCE_DIR=${TEST_SOURCE_DIR}"
+	@echo "OUTPUT_DIR=${OUTPUT_DIR}"
+
+	@for sp in ${SUBPROJECTS}; do \
+		echo "SUBPROJECT: $$sp"; \
+		echo "\tSOURCE_DIR=$(call getSPSourceDir,$$sp)"; \
+		echo "\tTEST_SOURCE_DIR=$(call getSPTestSourceDir,$$sp)"; \
+		echo "\tDEV_OUTPUT_DIR=$(call getSPOutputDir,$$sp,dev)"; \
+		echo "\tPROD_OUTPUT_DIR=$(call getSPOutputDir,$$sp,prod)"; \
+	done
+
+clean:
+	@if [ -d ${OUTPUT_DIR} ]; then rm -rv ${OUTPUT_DIR}; fi
+	@if [ -d ${TEMPORARY_DIR} ]; then rm -rv ${TEMPORARY_DIR}; fi
+
+include ${SUBPROJECTS_MAKEFILES}
