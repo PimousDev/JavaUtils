@@ -28,19 +28,21 @@
 
 // TYPES
 /** Represents a named group of tests, i.e. a test suite, passed by executing
- * all the ones it contains.
+ * all the ones it contains. A group may contain other groups.
  */
 typedef struct _TestSuite TestSuite;
 
 /** Enumerates allowed test types */
 typedef enum{
 	TestType_UNDEFINED,
+	TestType_SUITE,
 	TestType_FUNC
 } TestType;
 
 /** Union of allowed test types as a generic type. */
 typedef union{
 	FuncTest* funcTest;
+	TestSuite* testSuite;
 } GenericTest;
 
 // CONSTRUCTORS

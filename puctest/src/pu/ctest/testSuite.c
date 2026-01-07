@@ -59,17 +59,6 @@ const TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 ){
 	if(testSuite->index >= testSuite->count) return NULL;
 
-	testSuite->tests[testSuite->index] = (Test) {type, {
-		NULL
-	}};
-	switch(type){
-		case TestType_FUNC:
-			testSuite->tests[testSuite->index].test.funcTest = test.funcTest;
-			break;
-		default:
-			break;
-	}
-
-	testSuite->index++;
-	return NULL;
+	testSuite->tests[testSuite->index++] = (Test) {type, test};
+	return testSuite;
 }
