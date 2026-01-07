@@ -48,8 +48,8 @@ typedef union{
 // CONSTRUCTORS
 /** Constructs a new `TestSuite` with given values.
  * @param name Test suite's name.
- * @param count Test suite's size.
- * @return Pointer to allocated memory.
+ * @param count Test suite's size, greater than 0.
+ * @return Pointer to allocated memory or NULL if there is an error.
  *
  * @see puctest_testSuite_destruct
  */

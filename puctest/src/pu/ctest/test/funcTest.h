@@ -46,7 +46,7 @@ typedef struct _FuncTest FuncTest;
  * @param name Test's name.
  * @param func Function to be executed.
  * @param withValgrind Whether a test using valgrind should be done.
- * @return Pointer to allocated memory.
+ * @return Pointer to allocated memory or NULL if there is an error.
  *
  * @see puctest_funcTest_construct
  */

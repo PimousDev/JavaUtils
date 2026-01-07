@@ -1,5 +1,5 @@
 /* Project Utils (Tools and Utility librairies/classes)
-	Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
+Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
 
 	These programs is free software: you can redistribute it and/or modify it
 	under the terms of the GNU Lesser General Public License as published by the
@@ -16,13 +16,37 @@
 	COPYING.LESSER). If not, see https://www.gnu.org/licenses/.
 */
 
-#pragma once
-
-#define _PUCTEST_INSIDE
-
 #include "tester.h"
-#include "testSuite.h"
 
-#include "test/funcTest.h"
+#include <stdlib.h>
 
-#undef _PUCTEST_INSIDE
+#include "tester.inc.h"
+
+// CONSTRUCTORS
+const Tester* puctest_tester_construct(
+	const char* const name,
+	const unsigned short count
+){
+	Tester* tester = malloc(sizeof(struct _Tester));
+	if(tester == NULL) return NULL;
+
+	tester->name = name;
+	tester->testSuite = puctest_testSuite_construct(name, count);
+	if(tester->testSuite == NULL){
+		free(tester);
+		return NULL;
+	}
+
+	return tester;
+}
+
+// DESTRUCTORS
+void puctest_tester_destruct(Tester* tester){
+	puctest_testSuite_destruct((TestSuite*) tester->testSuite);
+	free(tester);
+}
+
+// GETTERS
+const char* puctest_tester_getName(const Tester* tester){
+	return tester->name;
+}

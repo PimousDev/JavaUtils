@@ -1,5 +1,5 @@
 /* Project Utils (Tools and Utility librairies/classes)
-	Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
+Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
 
 	These programs is free software: you can redistribute it and/or modify it
 	under the terms of the GNU Lesser General Public License as published by the
@@ -18,11 +18,10 @@
 
 #pragma once
 
-#define _PUCTEST_INSIDE
-
-#include "tester.h"
 #include "testSuite.h"
 
-#include "test/funcTest.h"
-
-#undef _PUCTEST_INSIDE
+// STRUCTURES
+struct _Tester{
+	const char* name;
+	const TestSuite* testSuite;
+};
