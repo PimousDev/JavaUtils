@@ -42,6 +42,19 @@ const TestSuite* puctest_testSuite_construct(
 
 // DESTRUCTORS
 void puctest_testSuite_destruct(TestSuite* testSuite){
+	for(unsigned short i = 0; i < testSuite->index; i++){
+		switch(testSuite->tests[i].type){
+			case TestType_UNDEFINED:
+				break;
+			case TestType_SUITE:
+				puctest_testSuite_destruct(testSuite->tests[i].test.testSuite);
+				break;
+			case TestType_FUNC:
+				puctest_funcTest_destruct(testSuite->tests[i].test.funcTest);
+				break;
+		}
+	}
+
 	free(testSuite);
 }
 
