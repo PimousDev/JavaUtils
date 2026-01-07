@@ -11,10 +11,10 @@ set(TEMPORARY_DIR tmp)
 
 file(GLOB SUBPROJECTS_SOURCE_DIRS
 	RELATIVE "${CMAKE_SOURCE_DIR}"
-	"*/${SOURCE_DIR}"
+	"*/CMakeLists.txt"
 )
 list(TRANSFORM SUBPROJECTS_SOURCE_DIRS
-	REPLACE "^([^/]+)/${SOURCE_DIR}$" "\\1"
+	REPLACE "^([^/]+)/CMakeLists.txt$" "\\1"
 	OUTPUT_VARIABLE SUBPROJECTS
 )
 
@@ -63,14 +63,14 @@ endfunction()
 function(getPrivateHeaders variable subproject directory)
 	block(SCOPE_FOR VARIABLES)
 		getHeaders(${variable} ${subproject} ${directory})
-		list(FILTER PRIVATE_HEADERS INCLUDE REGEX ".+\.inc\.h$")
+		list(FILTER ${variable} INCLUDE REGEX ".+\.inc\.h$")
 		return(PROPAGATE ${variable})
 	endblock()
 endfunction()
 function(getPublicHeaders variable subproject directory)
 	block(SCOPE_FOR VARIABLES)
 		getHeaders(${variable} ${subproject} ${directory})
-		list(FILTER PRIVATE_HEADERS EXCLUDE REGEX ".+\.inc\.h$")
+		list(FILTER ${variable} EXCLUDE REGEX ".+\.inc\.h$")
 		return(PROPAGATE ${variable})
 	endblock()
 endfunction()
