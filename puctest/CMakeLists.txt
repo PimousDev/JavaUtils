@@ -11,6 +11,9 @@ target_sources(puctest
 	PRIVATE "${SOURCES}" "${PRIVATE_HEADERS}"
 	PUBLIC "${PUBLIC_HEADERS}"
 )
+target_include_directories(puctest
+	PUBLIC "${SUBPROJECT_SOURCE_DIR}/"
+)
 set_target_properties(puctest PROPERTIES
 	COMPILE_FLAGS "-DPUCTEST_COMPILATION"
 	LIBRARY_OUTPUT_DIRECTORY "${PUCUTILS_TEST_LIB_OUTPUT_DIR}"

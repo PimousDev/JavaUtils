@@ -15,6 +15,9 @@ target_sources(pucutils
 	PRIVATE "${SOURCES}" "${PRIVATE_HEADERS}"
 	PUBLIC "${PUBLIC_HEADERS}"
 )
+target_include_directories(pucutils
+	PUBLIC "${SUBPROJECT_SOURCE_DIR}/"
+)
 set_target_properties(pucutils PROPERTIES
 	COMPILE_FLAGS "-D PUCUTILS_COMPILATION"
 	LIBRARY_OUTPUT_DIRECTORY "${PUCUTILS_PROD_LIB_OUTPUT_DIR}"
@@ -44,9 +47,6 @@ target_sources(pucutilsTest
 )
 target_link_libraries(pucutilsTest
 	PRIVATE puctest pucutils
-)
-target_include_directories(pucutilsTest
-	PRIVATE "${SUBPROJECT_SOURCE_DIR}/"
 )
 set_target_properties(pucutilsTest PROPERTIES
 	COMPILE_FLAGS "-D PUCUTILS_COMPILATION"
