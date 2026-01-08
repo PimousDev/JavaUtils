@@ -19,8 +19,13 @@
 #include "testSuite.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
+#include "puctest.inc.h"
 #include "testSuite.inc.h"
+#include "util/util.inc.h"
+
+static const char* const SUITE_HEADER_FORMAT = "%s+ %s suite:\n";
 
 // CONSTRUCTORS
 TestSuite* puctest_testSuite_construct(
@@ -42,19 +47,18 @@ TestSuite* puctest_testSuite_construct(
 
 // DESTRUCTORS
 void puctest_testSuite_destruct(TestSuite* testSuite){
+	Test test;
 	for(unsigned short i = 0; i < testSuite->index; i++){
-		switch(testSuite->tests[i].type){
+		test = testSuite->tests[i];
+
+		switch(test.type){
 			case TestType_UNDEFINED:
 				break;
 			case TestType_SUITE:
-				puctest_testSuite_destruct(
-					(TestSuite*) testSuite->tests[i].test.testSuite
-				);
+				puctest_testSuite_destruct((TestSuite*) test.test.testSuite);
 				break;
 			case TestType_FUNC:
-				puctest_funcTest_destruct(
-					(FuncTest*) testSuite->tests[i].test.funcTest
-				);
+				puctest_funcTest_destruct((FuncTest*) test.test.funcTest);
 				break;
 		}
 	}
@@ -69,29 +73,13 @@ const char* puctest_testSuite_getName(const TestSuite* testSuite){
 unsigned short puctest_testSuite_getCount(const TestSuite* testSuite){
 	return testSuite->count;
 }
-GenericTest puctest_testSuite_getTest(const TestSuite* testSuite,
-	const unsigned short index
-){
-	if(index >= testSuite->count)
-		return (GenericTest) {NULL};
-
-	return testSuite->tests[index].test;
-}
-TestType puctest_testSuite_getTestType(const TestSuite* testSuite,
-	const unsigned short index
-){
-	if(index >= testSuite->count)
-		return TestType_UNDEFINED;
-
-	return testSuite->tests[index].type;
-}
 
 // SETTERS
 TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 	const TestType type,
 	const void* test
 ){
-	if(testSuite->index >= testSuite->count) return NULL;
+	if(testSuite->index >= puctest_testSuite_getCount(testSuite)) return NULL;
 
 	if(type != TestType_UNDEFINED){
 		GenericTest gTest = {NULL};
@@ -99,7 +87,7 @@ TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 			case TestType_UNDEFINED:
 				break; // Can't happen.
 			case TestType_SUITE:
-				gTest.testSuite = (const void*) test;
+				gTest.testSuite = test;
 				break;
 			case TestType_FUNC:
 				gTest.funcTest = test;
@@ -111,4 +99,44 @@ TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 
 	testSuite->index++;
 	return testSuite;
+}
+
+// FUNCTIONS
+unsigned int puctest_testSuite_run(const TestSuite* testSuite,
+	const char* path,
+	const unsigned char level
+){
+	printf(SUITE_HEADER_FORMAT,
+		puctest_util_chrRep(INDENTATION_CHAR, level),
+		puctest_testSuite_getName(testSuite)
+	);
+
+	return puctest_testSuite_runTests(testSuite, path, level + 1);
+}
+unsigned int puctest_testSuite_runTests(const TestSuite* testSuite,
+	const char* path,
+	const unsigned char level
+){
+	unsigned int passed = 0;
+
+	Test test;
+	for(unsigned short i = 0; i < puctest_testSuite_getCount(testSuite); i++){
+		test = testSuite->tests[i];
+
+		switch(test.type){
+			case TestType_UNDEFINED:
+				break;
+			case TestType_SUITE:
+				passed += puctest_testSuite_run(test.test.testSuite,
+					path, level
+				);
+				break;
+			case TestType_FUNC:
+				if(puctest_funcTest_run(test.test.funcTest, path, level))
+					passed += 1;
+				break;
+		}
+	}
+
+	return passed;
 }

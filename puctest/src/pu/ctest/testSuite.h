@@ -105,3 +105,30 @@ extern TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 	const TestType type,
 	const void* test
 );
+
+// FUNCTIONS
+/** Runs a `TestSuite` by executing all associated tests or selected ones.
+ * Specifically, it prints a header and call `puctest_testSuite_test`.
+ * @param testSuite Pointer to the `TestSuite`.
+ * @param path Path of selected test(s) to execute, or NULL.
+ * @param level Starting indentation level of outputs, increased in sub calls.
+ * @return Total count of passed tests.
+ *
+ * @see puctest_testSuite_runTests
+ */
+extern unsigned int puctest_testSuite_run(const TestSuite* testSuite,
+	const char* path,
+	const unsigned char level
+);
+/** Runs only all associated tests or selected ones of a `TestSuite`.
+ * @param testSuite Pointer to the `TestSuite`.
+ * @param path Path of selected test(s) to execute, or NULL.
+ * @param level Starting indentation level of outputs.
+ * @return Total count of passed tests.
+ *
+ * @see puctest_testSuite_run
+ */
+extern unsigned int puctest_testSuite_runTests(const TestSuite* testSuite,
+	const char* path,
+	const unsigned char level
+);
