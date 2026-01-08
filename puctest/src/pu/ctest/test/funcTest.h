@@ -33,8 +33,12 @@
 #endif
 
 // TYPES
-/** A function accepted by `FuncTest`. */
-typedef bool (*FuncTestFunction)(const void* context);
+/** A function accepted by `FuncTest`.
+ * @param context `Tester` context, currently always NULL.
+ * @return Whether the test passed, like exit codes (0 means a success, more
+ * than 0 means a failure).
+ */
+typedef unsigned char (*FuncTestFunction)(const void* context);
 /** Represents a named test passed by executing a C function. It may be
  * virtually divided into two tests to also check memory calls using a binary
  * given at TESTFUNC_MEMORY_EXECUTABLE.
@@ -70,3 +74,18 @@ extern void puctest_funcTest_destruct(FuncTest* funcTest);
  * @return `FuncTest`'s name.
  */
 extern const char* puctest_funcTest_getName(const FuncTest* funcTest);
+
+// FUNCTIONS
+/** Runs a `FuncTest` by executing its function. It may also reexecutes the
+ * tester in another process using a specific path to this test in order to
+ * check memory calls.
+ * @param funcTest Pointer to the `FuncTest`.
+ * @param path Path of selected subtest to execute, like whether to check memory
+ * calls, or NULL.
+ * @param level Starting indentation level of outputs.
+ * @return Whether the test passed.
+ */
+extern bool puctest_funcTest_run(const FuncTest* funcTest,
+	const char* path,
+	const unsigned char level
+);

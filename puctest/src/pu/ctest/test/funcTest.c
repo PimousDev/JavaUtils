@@ -19,8 +19,14 @@
 #include "funcTest.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
+#include "../puctest.inc.h"
 #include "funcTest.inc.h"
+#include "../util/util.inc.h"
+
+static const char* const FUNCTEST_HEADER_FORMAT = "%s| %s function test... ";
+static const char* const FUNCTEST_FOOTER_FORMAT = "%s (%d)\n";
 
 // CONSTRUCTORS
 FuncTest* puctest_funcTest_construct(
@@ -46,4 +52,25 @@ void puctest_funcTest_destruct(FuncTest* funcTest){
 // SETTERS
 const char* puctest_funcTest_getName(const FuncTest* funcTest){
 	return funcTest->name;
+}
+
+// FUNCTIONS
+bool puctest_funcTest_run(const FuncTest* funcTest,
+	const char* path,
+	const unsigned char level
+){
+	printf(FUNCTEST_HEADER_FORMAT,
+		puctest_util_chrRep(INDENTATION_CHAR, level),
+		puctest_funcTest_getName(funcTest)
+	);
+
+	const unsigned char exitCode = funcTest->func(NULL);
+	const bool passed = exitCode == EXIT_SUCCESS;
+
+	printf(FUNCTEST_FOOTER_FORMAT,
+		passed ? PUCTEST_PASSED_FORMAT : PUCTEST_FAILED_FORMAT,
+		exitCode
+	);
+
+	return passed;
 }
