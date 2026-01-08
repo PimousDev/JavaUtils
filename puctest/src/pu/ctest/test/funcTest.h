@@ -50,8 +50,9 @@ typedef struct _FuncTest FuncTest;
  *
  * @see puctest_funcTest_construct
  */
-extern const FuncTest* puctest_funcTest_construct(
-	const char* const name, const FuncTestFunction func,
+extern FuncTest* puctest_funcTest_construct(
+	const char* const name,
+	const FuncTestFunction func,
 	const bool withValgrind
 );
 

@@ -23,8 +23,9 @@
 #include "funcTest.inc.h"
 
 // CONSTRUCTORS
-const FuncTest* puctest_funcTest_construct(
-   const char* const name, const FuncTestFunction func,
+FuncTest* puctest_funcTest_construct(
+   const char* const name,
+   const FuncTestFunction func,
    const bool withValgrind
 ){
     FuncTest* funcTest = malloc(sizeof(struct _FuncTest));
