@@ -22,6 +22,8 @@ Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
 	#error "Only <pu/ctest/puctest.h> can be included directly;"
 #endif
 
+#include "testSuite.h"
+
 // TYPES
 /** Represents a testing system. It contains a bunch of tests and is run by
  * giving a program to test. It may also execute only one test or `TestSuite` if
@@ -32,12 +34,12 @@ typedef struct _Tester Tester;
 // CONSTRUCTORS
 /** Constructs a new `Tester` with given values.
  * @param name `Tester`'s name.
- * @param count `Tester`'s test count.
+ * @param count `Tester` top-level tests' count.
  * @return Pointer to allocated memory or NULL if there is an error.
  *
  * @see puctest_tester_destruct
  */
-extern const Tester* puctest_tester_construct(
+extern Tester* puctest_tester_construct(
 	const char* const name,
 	const unsigned short count
 );
@@ -55,3 +57,26 @@ extern void puctest_tester_destruct(Tester* tester);
  * @param tester Pointer to the `Tester`.
  */
 extern const char* puctest_tester_getName(const Tester* tester);
+
+// SETTERS
+/** Adds a `test` to `Tester` top-level tests if there is still enough room for.
+ * @param tester Pointer to the `Tester`.
+ * @param type Test's type.
+ * @param test Test to add.
+ * @return Pointer to the `Tester` or `NULL` if the group is full.
+ */
+extern Tester* puctest_tester_addTest(Tester* tester,
+	const TestType type,
+	const void* test
+);
+
+// FUNCTIONS
+/** Runs a `Tester` by executing all associated tests or selected ones.
+ * Specifically, it prints a header and call `puctest_testSuite_runTests`.
+ * @param tester Pointer to the `Tester`.
+ * @param path Path of selected test(s) to execute, or NULL.
+ * @return Total count of passed tests.
+ */
+extern unsigned int puctest_tester_run(const Tester* tester,
+	const char* path
+);

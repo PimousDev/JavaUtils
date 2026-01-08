@@ -23,5 +23,5 @@ Copyright &copy; 2024 - Pimous Dev. (https://www.pimous.dev/)
 // STRUCTURES
 struct _Tester{
 	const char* name;
-	const TestSuite* testSuite;
+	TestSuite* testSuite;
 };
