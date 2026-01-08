@@ -41,8 +41,8 @@ typedef enum{
 
 /** Union of allowed test types as a generic type. */
 typedef union{
-	FuncTest* funcTest;
-	TestSuite* testSuite;
+	const FuncTest* funcTest;
+	const TestSuite* testSuite;
 } GenericTest;
 
 // CONSTRUCTORS
@@ -53,8 +53,9 @@ typedef union{
  *
  * @see puctest_testSuite_destruct
  */
-extern const TestSuite* puctest_testSuite_construct(
-	const char* const name, const unsigned short count
+extern TestSuite* puctest_testSuite_construct(
+	const char* const name,
+	const unsigned short count
 );
 
 // DESTRUCTORS
@@ -76,15 +77,31 @@ extern const char* puctest_testSuite_getName(const TestSuite* testSuite);
  * @return `TestSuite`'s count.
  */
 extern unsigned short puctest_testSuite_getCount(const TestSuite* testSuite);
+/** Retrieves `TestSuite`'s `GenericTest` at `index`.
+ * @param testSuite Pointer to the `TestSuite`.
+ * @param index `GenericTest`'s index.
+ * @return `GenericTest` at `index`, or `NULL` if out of bounds.
+ */
+extern GenericTest puctest_testSuite_getTest(const TestSuite* testSuite,
+	const unsigned short index
+);
+/** Retrieves `TestSuite` test's type at `index`.
+ * @param testSuite Pointer to the `TestSuite`.
+ * @param index Test's index.
+ * @return Test's type at `index`, or `NULL` if out of bounds.
+ */
+extern TestType puctest_testSuite_getTestType(const TestSuite* testSuite,
+	const unsigned short index
+);
 
 // SETTERS
 /** Adds a `test` to `testSuite` if there is still enough room for.
  * @param testSuite Pointer to the `TestSuite`.
  * @param type Test's type.
  * @param test Test to add.
- * @return Pointer to `testSuite` or `NULL` if the group is full.
+ * @return Pointer to the `TestSuite` or `NULL` if the group is full.
  */
-extern const TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
+extern TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 	const TestType type,
-	const GenericTest test
+	const void* test
 );

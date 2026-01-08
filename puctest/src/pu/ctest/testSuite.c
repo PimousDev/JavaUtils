@@ -23,7 +23,7 @@
 #include "testSuite.inc.h"
 
 // CONSTRUCTORS
-const TestSuite* puctest_testSuite_construct(
+TestSuite* puctest_testSuite_construct(
 	const char* const name, const unsigned short count
 ){
 	if(count <= 0) return NULL;
@@ -47,10 +47,14 @@ void puctest_testSuite_destruct(TestSuite* testSuite){
 			case TestType_UNDEFINED:
 				break;
 			case TestType_SUITE:
-				puctest_testSuite_destruct(testSuite->tests[i].test.testSuite);
+				puctest_testSuite_destruct(
+					(TestSuite*) testSuite->tests[i].test.testSuite
+				);
 				break;
 			case TestType_FUNC:
-				puctest_funcTest_destruct(testSuite->tests[i].test.funcTest);
+				puctest_funcTest_destruct(
+					(FuncTest*) testSuite->tests[i].test.funcTest
+				);
 				break;
 		}
 	}
@@ -65,13 +69,46 @@ const char* puctest_testSuite_getName(const TestSuite* testSuite){
 unsigned short puctest_testSuite_getCount(const TestSuite* testSuite){
 	return testSuite->count;
 }
+GenericTest puctest_testSuite_getTest(const TestSuite* testSuite,
+	const unsigned short index
+){
+	if(index >= testSuite->count)
+		return (GenericTest) {NULL};
+
+	return testSuite->tests[index].test;
+}
+TestType puctest_testSuite_getTestType(const TestSuite* testSuite,
+	const unsigned short index
+){
+	if(index >= testSuite->count)
+		return TestType_UNDEFINED;
+
+	return testSuite->tests[index].type;
+}
 
 // SETTERS
-const TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
-	const TestType type, const GenericTest test
+TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
+	const TestType type,
+	const void* test
 ){
 	if(testSuite->index >= testSuite->count) return NULL;
 
-	testSuite->tests[testSuite->index++] = (Test) {type, test};
+	if(type != TestType_UNDEFINED){
+		GenericTest gTest = {NULL};
+		switch(type){
+			case TestType_UNDEFINED:
+				break; // Can't happen.
+			case TestType_SUITE:
+				gTest.testSuite = (const void*) test;
+				break;
+			case TestType_FUNC:
+				gTest.funcTest = test;
+				break;
+		}
+
+		testSuite->tests[testSuite->index] = (Test) {type, gTest};
+	}
+
+	testSuite->index++;
 	return testSuite;
 }
