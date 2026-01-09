@@ -19,8 +19,9 @@
 #pragma once
 
 // VARIABLES
-extern const char* const PUCTEST_PASSED_FORMAT;
-extern const char* const PUCTEST_FAILED_FORMAT;
+extern const char* const PUCTEST_PASSED_STR;
+extern const char* const PUCTEST_MEM_LEAKED_STR;
+extern const char* const PUCTEST_FAILED_STR;
 
 // FUNCTIONS
 /** Repeats `character` in a string and returns a pointer to shared buffer. The

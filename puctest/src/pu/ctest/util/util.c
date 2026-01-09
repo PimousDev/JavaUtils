@@ -21,8 +21,10 @@
 #include "util.inc.h"
 
 // VARIABLES
-const char* const PUCTEST_PASSED_FORMAT = "\x1B[1;38;5;2mPASSED\x1B[0m";
-const char* const PUCTEST_FAILED_FORMAT = "\x1B[1;38;5;1mFAILED\x1B[0m";
+const char* const PUCTEST_PASSED_STR = "\x1B[1;38;5;2mPASSED\x1B[0m";
+const char* const PUCTEST_MEM_LEAKED_STR
+	= "\x1B[1;38;5;11mMEMORY LEAKED\x1B[0m";
+const char* const PUCTEST_FAILED_STR = "\x1B[1;38;5;1mFAILED\x1B[0m";
 
 // FUNCTIONS
 const char* puctest_util_chrRep(

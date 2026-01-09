@@ -77,10 +77,19 @@ bool puctest_funcTest_run(const FuncTest* funcTest,
 	const unsigned char exitCode = funcTest->func(NULL);
 	const bool passed = exitCode == EXIT_SUCCESS;
 
+	const bool memPassed = !funcTest->withValgrind
+		|| puctest_funcTest_checkMemory(funcTest);
+
 	printf(FUNCTEST_FOOTER_FORMAT,
-		passed ? PUCTEST_PASSED_FORMAT : PUCTEST_FAILED_FORMAT,
+		!passed ? PUCTEST_FAILED_STR : (
+			memPassed ? PUCTEST_PASSED_STR : PUCTEST_MEM_LEAKED_STR
+		),
 		exitCode
 	);
 
 	return passed;
+}
+bool puctest_funcTest_checkMemory(const FuncTest* funcTest){
+	// TODO: Implement.
+	return false;
 }
