@@ -75,17 +75,38 @@ extern void puctest_funcTest_destruct(FuncTest* funcTest);
  */
 extern const char* puctest_funcTest_getName(const FuncTest* funcTest);
 
-// FUNCTIONS
-/** Runs a `FuncTest` by executing its function. It may also reexecutes the
- * tester in another process using a specific path to this test in order to
- * check memory calls.
+/** Retrieves total test count of a `FuncTest`.
  * @param funcTest Pointer to the `FuncTest`.
- * @param path Path of selected subtest to execute, like whether to check memory
- * calls, or NULL.
+ * @return either `1` or `2` if memory calls are also check.
+ *
+ * @see puctest_tester_getTotalCount
+ * @see puctest_testSuite_getTotalCount
+ */
+extern unsigned short puctest_funcTest_getTotalCount(const FuncTest* funcTest);
+
+// FUNCTIONS
+/** Runs a `FuncTest` by executing its function. It may also check memory calls
+ * as a subtest; see puctest_funcTest_checkMemory.
+ * @param funcTest Pointer to the `FuncTest`.
+ * @param path Path of selected subtests to execute, like whether to check
+ * memory calls; or NULL.
  * @param level Starting indentation level of outputs.
  * @return Whether the test passed.
+ *
+ * @see puctest_funcTest_checkMemory
  */
 extern bool puctest_funcTest_run(const FuncTest* funcTest,
 	const char* path,
 	const unsigned char level
 );
+/** Runs a memory calls check on `FuncTest`'s function in a sub-process. This is
+ * done by reexecuting the current program, i.e. the tester, with an exact path
+ * to this specific subtest as an argument and with the standard outputs
+ * blocked.
+ * @param funcTest Pointer to the `FuncTest`.
+ * @return Whether the test passed, i.e. there is no illegal accesses or memory
+ * leaks.
+ *
+ * @see puctest_funcTest_run
+ */
+extern bool puctest_funcTest_checkMemory(const FuncTest* funcTest);

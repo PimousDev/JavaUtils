@@ -74,6 +74,28 @@ unsigned short puctest_testSuite_getCount(const TestSuite* testSuite){
 	return testSuite->count;
 }
 
+unsigned int puctest_testSuite_getTotalCount(const TestSuite* testSuite){
+	unsigned int count = 0;
+
+	Test test;
+	for(unsigned short i = 0; i < testSuite->index; i++){
+		test = testSuite->tests[i];
+
+		switch(test.type){
+			case TestType_UNDEFINED:
+				break;
+			case TestType_SUITE:
+				count += puctest_testSuite_getTotalCount(test.test.testSuite);
+				break;
+			case TestType_FUNC:
+				count += puctest_funcTest_getTotalCount(test.test.funcTest);
+				break;
+		}
+	}
+
+	return count;
+}
+
 // SETTERS
 TestSuite* puctest_testSuite_addTest(TestSuite* testSuite,
 	const TestType type,
@@ -122,6 +144,8 @@ unsigned int puctest_testSuite_runTests(const TestSuite* testSuite,
 	Test test;
 	for(unsigned short i = 0; i < puctest_testSuite_getCount(testSuite); i++){
 		test = testSuite->tests[i];
+
+		// TODO: Filter using path.
 
 		switch(test.type){
 			case TestType_UNDEFINED:

@@ -55,8 +55,25 @@ extern void puctest_tester_destruct(Tester* tester);
 // GETTERS
 /** Retrieves `Tester`'s name.
  * @param tester Pointer to the `Tester`.
- */
+ * @return `Tester`'s name.
+*/
 extern const char* puctest_tester_getName(const Tester* tester);
+/** Retrieves `Tester`'s top-level test count.
+ * @param tester Pointer to the `TestSuite`.
+ * @return `Tester`'s top-level test count.
+ */
+extern unsigned short puctest_tester_getCount(const Tester* tester);
+
+/** Counts deeply the total number of tests associated to a `Tester`. The count
+ * is recursive, so it goes deeply into every `TestSuite`s.
+ * @param tester Pointer to the `Tester`.
+ * @return `Tester`'s total number of tests.
+ *
+ * @see puctest_tester_getCount
+ * @see puctest_testSuite_getTotalCount
+ * @see puctest_funcTest_getTotalCount
+ */
+extern unsigned int puctest_tester_getTotalCount(const Tester* tester);
 
 // SETTERS
 /** Adds a `test` to `Tester` top-level tests if there is still enough room for.

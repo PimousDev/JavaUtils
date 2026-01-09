@@ -24,6 +24,7 @@
 #include "../puctest.inc.h"
 #include "funcTest.inc.h"
 #include "../util/util.inc.h"
+#include "../util/unused.h"
 
 static const char* const FUNCTEST_HEADER_FORMAT = "%s| %s function test... ";
 static const char* const FUNCTEST_FOOTER_FORMAT = "%s (%d)\n";
@@ -54,9 +55,13 @@ const char* puctest_funcTest_getName(const FuncTest* funcTest){
 	return funcTest->name;
 }
 
+unsigned short puctest_funcTest_getTotalCount(const FuncTest* funcTest){
+	return 1 + funcTest->withValgrind;
+}
+
 // FUNCTIONS
 bool puctest_funcTest_run(const FuncTest* funcTest,
-	const char* path,
+	const char* UNUSED_PARAM(path),
 	const unsigned char level
 ){
 	printf(FUNCTEST_HEADER_FORMAT,
@@ -64,6 +69,11 @@ bool puctest_funcTest_run(const FuncTest* funcTest,
 		puctest_funcTest_getName(funcTest)
 	);
 
+	// TODO: Select test using `path`.
+
+	// TODO: Run in another process to prevent crashes.
+	// Indicate crash reason if any (Like segfault).
+	// TODO: Add custom assertions and remove returning exit codes.
 	const unsigned char exitCode = funcTest->func(NULL);
 	const bool passed = exitCode == EXIT_SUCCESS;
 

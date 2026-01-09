@@ -68,6 +68,10 @@ const char* puctest_tester_getName(const Tester* tester){
 	return tester->name;
 }
 
+unsigned int puctest_tester_getTotalCount(const Tester* tester){
+	return puctest_testSuite_getTotalCount(tester->testSuite);
+}
+
 // SETTERS
 Tester* puctest_tester_addTest(Tester* tester,
 	const TestType type,
@@ -87,7 +91,8 @@ unsigned int puctest_tester_run(const Tester* tester, const char* path){
 	);
 	bool passed = false;
 
-	printf(TESTER_FOOTER_FORMAT, passedCount, 0,
+	printf(TESTER_FOOTER_FORMAT, passedCount,
+		puctest_tester_getTotalCount(tester),
 		passed ? PUCTEST_PASSED_FORMAT : PUCTEST_FAILED_FORMAT,
 		passed ? TESTER_PASSED_STR : TESTER_FAILED_STR
 	);
