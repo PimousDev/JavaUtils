@@ -89,7 +89,7 @@ bool puctest_funcTest_run(const FuncTest* funcTest,
 
 	return passed;
 }
-bool puctest_funcTest_checkMemory(const FuncTest* funcTest){
+bool puctest_funcTest_checkMemory(const FuncTest* UNUSED_PARAM(funcTest)){
 	// TODO: Implement.
 	return false;
 }
